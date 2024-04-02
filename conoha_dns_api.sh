@@ -9,16 +9,20 @@ source ${SCRIPT_PATH}/.env
 # -------- #
 # FUNCTION #
 # -------- #
+
+# アクセストークンを取得して標準出力に返す関数
 get_conoha_token(){
-  curl -sS https://identity.${CNH_REGION}.conoha.io/v2.0/tokens \
+  curl -sS ${CNH_IDENTITY_ENDPOINT}/auth/tokens \
   -X POST \
   -H "Accept: application/json" \
-  -d '{ "auth": { "passwordCredentials": { "username": "'${CNH_USERNAME}'", "password": "'${CNH_PASSWORD}'" }, "tenantId": "'${CNH_TENANT_ID}'" } }' \
-  | jq -r ".access.token.id"
+  -d '{"auth":{"identity":{"methods":["password"],"password":{"user":{"name":"'${CNH_USERNAME}'","password":"'${CNH_PASSWORD}'"}}},"scope":{"project":{"id":"'${CNH_TENANT_ID}'"}}}}' \
+  -o /dev/null \
+  -w "%header{X-Subject-Token}"
 }
 
+
 get_conoha_domain_id(){
-  curl -sS https://dns-service.${CNH_REGION}.conoha.io/v1/domains \
+  curl -sS ${CNH_DNS_ENDPOINT}/v1/domains \
   -X GET \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -27,7 +31,7 @@ get_conoha_domain_id(){
 }
 
 create_conoha_dns_record(){
-  curl -sS https://dns-service.${CNH_REGION}.conoha.io/v1/domains/${CNH_DOMAIN_ID}/records \
+  curl -sS ${CNH_DNS_ENDPOINT}/v1/domains/${CNH_DOMAIN_ID}/records \
   -X POST \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -36,7 +40,7 @@ create_conoha_dns_record(){
 }
 
 get_conoha_dns_record_id(){
-  curl -sS https://dns-service.${CNH_REGION}.conoha.io/v1/domains/${CNH_DOMAIN_ID}/records \
+  curl -sS ${CNH_DNS_ENDPOINT}/v1/domains/${CNH_DOMAIN_ID}/records \
   -X GET \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
@@ -46,7 +50,7 @@ get_conoha_dns_record_id(){
 
 delete_conoha_dns_record(){
   local delete_id=$1
-  curl -sS https://dns-service.${CNH_REGION}.conoha.io/v1/domains/${CNH_DOMAIN_ID}/records/${delete_id} \
+  curl -sS ${CNH_DNS_ENDPOINT}/v1/domains/${CNH_DOMAIN_ID}/records/${delete_id} \
   -X DELETE \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
