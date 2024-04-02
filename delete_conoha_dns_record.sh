@@ -27,6 +27,7 @@ source ${SCRIPT_PATH}/conoha_dns_api.sh
 # GET RECORD ID #
 # ------------- #
 CNH_RECORD_ID=$(get_conoha_dns_record_id)
+echo Record ID is ${CNH_RECORD_ID}
 
 # ----------------- #
 # DELETE DNS RECORD #
