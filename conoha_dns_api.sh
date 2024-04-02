@@ -20,14 +20,13 @@ get_conoha_token(){
   -w "%header{X-Subject-Token}"
 }
 
-
 get_conoha_domain_id(){
   curl -sS ${CNH_DNS_ENDPOINT}/v1/domains \
   -X GET \
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
   -H "X-Auth-Token: ${CNH_TOKEN}" \
-  | jq -r '.domains[] | select(.name == "'${CNH_DNS_DOMAIN_ROOT}'") | .id'
+  | jq -r '.domains[] | select(.name == "'${CNH_DNS_DOMAIN_ROOT}'") | .uuid'
 }
 
 create_conoha_dns_record(){
