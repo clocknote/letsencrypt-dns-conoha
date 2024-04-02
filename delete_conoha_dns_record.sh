@@ -7,7 +7,7 @@
 # CERTBOT_DOMAIN
 # CERTBOT_VALIDATION
 
-# ----- script ----- # 
+# ----- script ----- #
 SCRIPT_NAME=$(basename $0)
 SCRIPT_PATH=$(dirname $(readlink -f $0))
 
@@ -31,4 +31,5 @@ CNH_RECORD_ID=$(get_conoha_dns_record_id)
 # ----------------- #
 # DELETE DNS RECORD #
 # ----------------- #
+echo Delete ConoHa DNS Record...
 delete_conoha_dns_record ${CNH_RECORD_ID}

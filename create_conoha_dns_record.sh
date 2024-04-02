@@ -7,7 +7,7 @@
 # CERTBOT_DOMAIN
 # CERTBOT_VALIDATION
 
-# ----- script ----- # 
+# ----- script ----- #
 SCRIPT_NAME=$(basename $0)
 SCRIPT_PATH=$(dirname $(readlink -f $0))
 
@@ -24,6 +24,7 @@ CNH_DNS_DATA=${CERTBOT_VALIDATION}
 source ${SCRIPT_PATH}/conoha_dns_api.sh
 
 # ----------------- #
-# CREATE DNS RECORD # 
+# CREATE DNS RECORD #
 # ----------------- #
+echo Create DNS Record...
 create_conoha_dns_record

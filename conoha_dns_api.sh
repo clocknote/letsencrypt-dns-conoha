@@ -60,9 +60,11 @@ delete_conoha_dns_record(){
 # ----------- #
 # GET A TOKEN #
 # ----------- #
+echo Get ConoHa Token...
 CNH_TOKEN=$(get_conoha_token)
 
 # ----------------- #
 # GET THE DOMAIN ID #
 # ----------------- #
+echo Get Domain ID...
 CNH_DOMAIN_ID=$(get_conoha_domain_id)
