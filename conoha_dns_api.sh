@@ -44,7 +44,7 @@ get_conoha_dns_record_id(){
   -H "Accept: application/json" \
   -H "Content-Type: application/json" \
   -H "X-Auth-Token: ${CNH_TOKEN}" \
-  | jq -r '.records[] | select(.name == "'${CNH_DNS_NAME}'" and .data == "'${CNH_DNS_DATA}'") | .id'
+  | jq -r '.records[] | select(.name == "'${CNH_DNS_NAME}'" and .data == "'${CNH_DNS_DATA}'") | .uuid'
 }
 
 delete_conoha_dns_record(){
