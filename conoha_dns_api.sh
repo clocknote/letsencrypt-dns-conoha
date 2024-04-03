@@ -36,9 +36,9 @@ create_conoha_dns_record(){
   -H "Content-Type: application/json" \
   -H "X-Auth-Token: ${CNH_TOKEN}" \
   -d '{ "name": "'${CNH_DNS_NAME}'", "type": "'${CNH_DNS_TYPE}'", "data": "'${CNH_DNS_DATA}'", "ttl": 60 }'
-  echo "\nWaiting for 120 seconds..."
-  sleep 120s
-  echo Wait Done.
+  echo ""
+  echo Waiting for 120 seconds...
+  sleep 120s ; echo Wait Done.
 }
 
 get_conoha_dns_record_id(){
